@@ -13,8 +13,11 @@ export const Search = () => {
 
   const heroes = getHeroesByName(q);
 
+  const showSearch = (q.length === 0); //esta expresion retorna un boolean
+  const showError = ( q.length > 0 ) && heroes.length === 0;
+
   const { searchText, onInputChange } = useForm({
-    searchText:' '
+    searchText: q
   });
 
   const onSearchSubmit = (e) => {
@@ -54,16 +57,19 @@ export const Search = () => {
         <div className="col-7">
           <h4>Result</h4>
           <hr />
+          {/* {
+            ( q==='') ? <div className="alert alert-primary">Search a Hero</div> : ( heroes.length === 0) && <div className="alert alert-danger">No hero with <b>{q}</b></div>
+          } */}
+          
+          <div className="alert alert-primary" style={{ display : showSearch ? '' : 'none'}}>Search a Hero</div>
 
-          <div className="alert alert-primary">
-            Search a Hero
-          </div>
-
-          <div className="alert alert-danger">
-            No hero with <b>{q}</b>
-          </div>
+          <div className="alert alert-danger" style={{ display: showError ? '' : 'none'}}>No hero with <b>{q}</b></div>
+          
 
           {/* <HeroCard/> */}
+          {
+            heroes.map( hero => (<HeroCard key={hero.id} {...hero}/> ))
+          }
         </div>
       </div>
       

@@ -4,14 +4,16 @@ import { AuthContext } from '../../auth';
 
 
 export const Navbar = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     const navigate = useNavigate();
 
 
     const onLogout = () => {
-      navigate('/login',{
-        replace: true
-      }); //se parece al redirect
+
+        logout();
+        navigate('/login',{
+            replace: true
+        }); //se parece al redirect
     }
     return (
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark p-2">
